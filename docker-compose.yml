@@ -1,0 +1,38 @@
+version: '3'
+services:
+  mediawiki:
+    build: .
+    image: gnagaoka/ck3wiki:latest
+    restart: always
+    ports:
+      - 8080:80
+    links:
+      - database
+    volumes:
+      - ./images:/var/www/html/images
+      - ./LocalSettings.php:/var/www/html/LocalSettings.php
+    environment:
+      DB_USER: wikiuser
+      DB_PASSWORD: example
+      DB_NAME: my_wiki
+      DB_SERVER: database:3306
+      SERVER_HOST: http://localhost:8080
+      SERVER_SECRET_KEY: 4709447dfffb3f4606ac4e6d33a12ef44d74b15fa76d08d17421474a0189bad5
+      SERVER_UPGRADE_KEY: a38693f574711166
+  database:
+    image: mysql:8.0.15
+    restart: always
+    ports:
+      - "43306:3306"
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_USER: wikiuser
+      MYSQL_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: 1qaz2wsx
+      MYSQL_DATABASE: my_wiki
+    command: [
+      --character-set-server=utf8mb4,
+      --collation-server=utf8mb4_general_ci,
+      --default-storage-engine=innodb
+    ]
