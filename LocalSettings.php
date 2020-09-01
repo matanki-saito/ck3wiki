@@ -134,3 +134,4 @@ wfLoadSkin( 'Vector' );
 # Add more configuration options below.
 
 wfLoadExtension( 'EmbedVideo' );
+wfLoadExtension( 'ParserFunctions' );
