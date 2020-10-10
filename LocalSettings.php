@@ -135,3 +135,18 @@ wfLoadSkin( 'Vector' );
 
 wfLoadExtension( 'EmbedVideo' );
 wfLoadExtension( 'ParserFunctions' );
+
+wfLoadExtension( 'DiscordNotifications' );
+
+// Required. Your Discord webhook URL. Read more from here: https://support.discordapp.com/hc/en-us/articles/228383668
+$wgDiscordIncomingWebhookUrl = getenv("DISCORD_NOTIFY_WEBHOOK");;
+// Required. Name the message will appear to be sent from. Change this to whatever you wish it to be.
+$wgDiscordFromName = $wgSitename;
+// Avatar to use for messages. If blank, uses the webhook's default avatar.
+$wgDiscordAvatarUrl = "";
+// URL into your MediaWiki installation with the trailing /.
+$wgDiscordNotificationWikiUrl = "http://ck3.paradwiki.org/";
+// Wiki script name. Leave this to default one if you do not have URL rewriting enabled.
+$wgDiscordNotificationWikiUrlEnding = "index.php?title=";
+// What method will be used to send the data to Discord server. By default this is "curl" which only works if you have the curl extension enabled. There have been cases where VisualEditor extension does not work with the curl method, so in that case the recommended solution is to use the file_get_contents method. This can be: "curl" or "file_get_contents". Default: "curl".
+$wgDiscordSendMethod = "curl";
