@@ -138,7 +138,7 @@ wfLoadExtension( 'ParserFunctions' );
 
 wfLoadExtension( 'DiscordNotifications' );
 // Required. Your Discord webhook URL. Read more from here: https://support.discordapp.com/hc/en-us/articles/228383668
-$wgDiscordIncomingWebhookUrl = getenv("DISCORD_NOTIFY_WEBHOOK");;
+$wgDiscordIncomingWebhookUrl = getenv("DISCORD_NOTIFY_WEBHOOK");
 // Required. Name the message will appear to be sent from. Change this to whatever you wish it to be.
 $wgDiscordFromName = $wgSitename;
 // Avatar to use for messages. If blank, uses the webhook's default avatar.
@@ -152,7 +152,7 @@ $wgDiscordSendMethod = "curl";
 
 wfLoadExtension( 'googleAnalytics' );
 // Replace xxxxxxx-x with YOUR GoogleAnalytics UA number
-$wgGoogleAnalyticsAccount = 'UA-xxxxxxx-x'; 
+$wgGoogleAnalyticsAccount = getenv("GOOGLE_ANALYTICS_ACCOUNT"); 
 // Add HTML code for any additional web analytics (can be used alone or with $wgGoogleAnalyticsAccount)
 $wgGoogleAnalyticsOtherCode = '<script type="text/javascript" src="https://analytics.example.com/tracking.js"></script>';
 
