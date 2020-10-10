@@ -136,7 +136,7 @@ wfLoadSkin( 'Vector' );
 wfLoadExtension( 'EmbedVideo' );
 wfLoadExtension( 'ParserFunctions' );
 
-wfLoadExtension( 'DiscordNotifications' );
+require_once("$IP/extensions/DiscordNotifications/DiscordNotifications.php");
 // Required. Your Discord webhook URL. Read more from here: https://support.discordapp.com/hc/en-us/articles/228383668
 $wgDiscordIncomingWebhookUrl = getenv("DISCORD_NOTIFY_WEBHOOK");
 // Required. Name the message will appear to be sent from. Change this to whatever you wish it to be.
@@ -150,7 +150,7 @@ $wgDiscordNotificationWikiUrlEnding = "index.php?title=";
 // What method will be used to send the data to Discord server. By default this is "curl" which only works if you have the curl extension enabled. There have been cases where VisualEditor extension does not work with the curl method, so in that case the recommended solution is to use the file_get_contents method. This can be: "curl" or "file_get_contents". Default: "curl".
 $wgDiscordSendMethod = "curl";
 
-wfLoadExtension( 'googleAnalytics' );
+require_once("$IP/extensions/googleAnalytics/googleAnalytics.php");
 // Replace xxxxxxx-x with YOUR GoogleAnalytics UA number
 $wgGoogleAnalyticsAccount = getenv("GOOGLE_ANALYTICS_ACCOUNT"); 
 // Add HTML code for any additional web analytics (can be used alone or with $wgGoogleAnalyticsAccount)
