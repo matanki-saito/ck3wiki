@@ -136,6 +136,8 @@ wfLoadSkin( 'Vector' );
 wfLoadExtension( 'EmbedVideo' );
 wfLoadExtension( 'ParserFunctions' );
 
+$wgPFEnableStringFunctions = true;
+
 require_once("$IP/extensions/DiscordNotifications/DiscordNotifications.php");
 // Required. Your Discord webhook URL. Read more from here: https://support.discordapp.com/hc/en-us/articles/228383668
 $wgDiscordIncomingWebhookUrl = getenv("DISCORD_NOTIFY_WEBHOOK");
