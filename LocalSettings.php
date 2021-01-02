@@ -172,3 +172,5 @@ $wgGroupPermissions['sysop']['noanalytics'] = true;
 $wgGroupPermissions['bot']['noanalytics'] = true;
 // To exclude all logged in users give 'noanalytics' permission to 'user' group, i.e.
 $wgGroupPermissions['user']['noanalytics'] = true;
+
+wfLoadExtension( 'Cite' );
