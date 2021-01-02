@@ -1,4 +1,4 @@
-FROM mediawiki:1.34.2
+FROM mediawiki:1.32
 
 COPY ./LocalSettings.php /var/www/html/LocalSettings.php
 COPY ./wiki.png /var/www/html/resources/assets/wiki.png
