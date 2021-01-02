@@ -177,5 +177,5 @@ $wgGroupPermissions['user']['noanalytics'] = true;
 
 wfLoadExtension( 'Cite' );
 
-
-wfLoadExtension( 'LabeledSectionTransclusion' );
+// これは1.34だと無理だった
+// wfLoadExtension( 'LabeledSectionTransclusion' );
