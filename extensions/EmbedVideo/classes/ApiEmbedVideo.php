@@ -5,7 +5,7 @@
  *
  * @license		MIT
  * @package		EmbedVideo
- * @link		https://gitlab.com/hydrawiki/extensions/EmbedVideo
+ * @link		https://github.com/HydraWiki/mediawiki-embedvideo
  *
  **/
 class ApiEmbedVideo extends ApiBase {

@@ -23,7 +23,7 @@ class VideoHandler extends AudioHandler {
 	 * @param	mixed	$value
 	 */
 	public function validateParam($name, $value) {
-		if ($name === 'width' || $name === 'height') {
+		if ($name === 'width' || $name === 'width') {
 			return $value > 0;
 		}
 		return parent::validateParam($name, $value);
@@ -48,11 +48,6 @@ class VideoHandler extends AudioHandler {
 			//Force a reset.
 			$width = 640;
 			$height = 360;
-		}
-
-		if (isset($parameters['width']) && isset($parameters['height']) && $parameters['width'] > 0 && $parameters['height'] === $parameters['width']) {
-			// special allowance for square video embeds needed by some wikis, otherwise forced 16:9 ratios are followed.
-			return true;
 		}
 
 		if (isset($parameters['width']) && $parameters['width'] > 0 && $parameters['width'] < $width) {

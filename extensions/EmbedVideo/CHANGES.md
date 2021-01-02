@@ -1,18 +1,4 @@
 ## Patch Notes
-### v2.8.0
-* Renamed hitbox.tv to smashcast.tv.
-* Updated Nico Video embed code.
-* Added support for Twitch clips.
-* Fix issues with Twitch VODs.
-* Removed unused $wgFFmpegLocation that was interferring with TimedMediaHandler.
-* Added Polish translation.
-
-### v2.7.4
-* Added support for playlist to evlplayer
-* Added support for youtube video list
-* Updated Documentation for evlplayer
-* Added missing dependency for evlplayer in extension.json
-
 ### v2.7.3
 * Default Twitch VOD to autoplay=false by default
 * Allow videos to be sized in 1:1 aspect ratios for special use cases.
@@ -29,21 +15,21 @@
 
 ### v2.6.1
 * Added new configuration options to disable adding media handlers and file extensions.
- * https://gitlab.com/hydrawiki/extensions/EmbedVideo/issues/76
+ * https://github.com/HydraWiki/mediawiki-embedvideo/issues/76
 * Fixed an uninitialized array.
- * https://gitlab.com/hydrawiki/extensions/EmbedVideo/issues/77
+ * https://github.com/HydraWiki/mediawiki-embedvideo/issues/77
 * Fixed undefined indexes in the AudioHandler class.
- * https://gitlab.com/hydrawiki/extensions/EmbedVideo/issues/78
+ * https://github.com/HydraWiki/mediawiki-embedvideo/issues/78
 * Fixed class properties that were unintentionally declared as static.
- * https://gitlab.com/hydrawiki/extensions/EmbedVideo/issues/75
+ * https://github.com/HydraWiki/mediawiki-embedvideo/issues/75
 * Fixed RTL language issues with CSS.
- * https://gitlab.com/hydrawiki/extensions/EmbedVideo/pull/73
+ * https://github.com/HydraWiki/mediawiki-embedvideo/pull/73
 
 ### v2.6.0
 * Added support for vertically aligning videos.
 * Improved sizing of video and audio tags in Chrome and Firefox when using the media handler tags.
 * Fixed an undefined variable.
- * https://gitlab.com/hydrawiki/extensions/EmbedVideo/issues/71
+ * https://github.com/HydraWiki/mediawiki-embedvideo/issues/71
 
 ### v2.5.2
 * If ffmpeg is not installed on the server the FFProbe class will no longer attempt to use and instead just return generic descriptions.
@@ -95,9 +81,9 @@
 ### v2.2.9
 * Fixed issue with Twitch.tv switching over to HTTPS.
 * Added support for http://media.ccc.de
- * https://gitlab.com/hydrawiki/extensions/EmbedVideo/pull/52
+ * https://github.com/HydraWiki/mediawiki-embedvideo/pull/52
 * New services can now be added from other extensions programmatically.
- * https://gitlab.com/hydrawiki/extensions/EmbedVideo/pull/46
+ * https://github.com/HydraWiki/mediawiki-embedvideo/pull/46
 
 ### v2.2.8
 * Support for Daum TVPot
