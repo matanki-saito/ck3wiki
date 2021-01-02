@@ -1,8 +1,6 @@
-!! Version 2
-
 !! functionhooks
 lsth
-!! endfunctionhooks
+!!endfunctionhooks
 
 # This is the standard article assumed to exist.
 !! article
@@ -31,68 +29,68 @@ this is ==not== a section
 
 !! endarticle
 
-!! test
+!!test
 transclude a heading
-!! wikitext
+!!input
 {{#lsth:LsthSections|1}}
-!! html
+!!result
 <p>sec 1
 </p>
-!! end
+!!end
 
-!! test
+!!test
 transclude a heading (case insensitive)
-!! wikitext
+!!input
 {{#lsth:LsthSections|A}}
-!! html
+!!result
 <p>sec a
 </p>
-!! end
+!!end
 
-!! test
+!!test
 transclude the intro
-!! wikitext
+!!input
 {{#lsth:LsthSections}}
-!! html
+!!result
 <p>this is the intro
 </p>
-!! end
+!!end
 
 
-!! test
+!!test
 transclude a heading
-!! wikitext
+!!input
 {{#lsth:LsthSections|b}}
-!! html
+!!result
 <p>this is ==not== a section
 </p>
-!! end
+!!end
 
-!! test
+!!test
 transclude a heading
-!! wikitext
+!!input
 {{#lsth:LsthSections|not}}
-!! html
-!! end
+!!result
+!!end
 
-!! test
+!!test
 transclude offset section -w- subs.
-!! wikitext
+!!input
 {{#lsth:LsthSections|2}}
-!! html
+!!result
 <p>sec 2
 </p>
-<h3><span class="mw-headline" id="3">3</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=LsthSections&amp;action=edit&amp;section=T-1" title="Edit section: ">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<h3><span class="mw-headline" id="3">3</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=LsthSections&amp;action=edit&amp;section=T-1" title="LsthSections">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
 <p>sec 3
 </p>
-!! end
+!!end
 
-!! test
+!!test
 transclude nonesistent section
-!! wikitext
+!!input
 {{#lsth:LsthSections|9999}}
-!! html
-!! end
+!!result
+!!end
 
 !! article
 LsthNoInclude
@@ -105,13 +103,13 @@ within noinclude tags.</noinclude>
 <noinclude>This sentence is within</noinclude>broken noinclude tags.</noinclude>
 !! endarticle
 
-!! test
+!!test
 don't transclude content within noinclude tags
-!! wikitext
+!!input
 {{#lsth:LsthNoInclude}}
-!! html
+!!result
 <p>This sentence is outside noinclude tags.
 </p><p><br />
 broken noinclude tags.
 </p>
-!! end
+!!end

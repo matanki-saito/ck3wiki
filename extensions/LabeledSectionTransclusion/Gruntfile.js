@@ -1,25 +1,29 @@
-/* eslint-env node, es6 */
-
+/*jshint node:true */
 module.exports = function ( grunt ) {
-	var conf = grunt.file.readJSON( 'extension.json' );
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
-	grunt.loadNpmTasks( 'grunt-eslint' );
+	grunt.loadNpmTasks( 'grunt-jsonlint' );
+	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 
 	grunt.initConfig( {
-		banana: conf.MessagesDirs,
-		eslint: {
-			options: {
-				extensions: [ '.js', '.json' ],
-				cache: true
-			},
+		banana: {
+			all: 'i18n/'
+		},
+		jshint: {
 			all: [
-				'**/*.{js,json}',
+				'**/*.js',
+				'!node_modules/**',
+				'!vendor/**'
+			]
+		},
+		jsonlint: {
+			all: [
+				'**/*.json',
 				'!node_modules/**',
 				'!vendor/**'
 			]
 		}
 	} );
 
-	grunt.registerTask( 'test', [ 'eslint', 'banana' ] );
+	grunt.registerTask( 'test', [ 'jsonlint', 'banana', 'jshint' ] );
 	grunt.registerTask( 'default', 'test' );
 };
