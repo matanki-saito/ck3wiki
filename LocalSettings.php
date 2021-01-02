@@ -174,3 +174,4 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 $wgGroupPermissions['user']['noanalytics'] = true;
 
 wfLoadExtension( 'Cite' );
+wfLoadExtension( 'LabeledSectionTransclusion' );
