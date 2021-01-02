@@ -10,6 +10,8 @@
 # Further documentation for configuration settings may be found at:
 # https://www.mediawiki.org/wiki/Manual:Configuration_settings
 
+$wgShowExceptionDetails = true;
+
 # Protect against web entry
 if ( !defined( 'MEDIAWIKI' ) ) {
 	exit;
@@ -174,4 +176,6 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 $wgGroupPermissions['user']['noanalytics'] = true;
 
 wfLoadExtension( 'Cite' );
+
+
 wfLoadExtension( 'LabeledSectionTransclusion' );
