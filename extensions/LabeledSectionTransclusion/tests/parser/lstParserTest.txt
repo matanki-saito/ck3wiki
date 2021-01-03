@@ -23,6 +23,20 @@ a <section begin=a/>sec a<section end=a/>
 <section begin=a/>...<section end=a/>
 !! endarticle
 
+!! article
+Sections in German
+!! text
+1 <Abschnitt Anfang=1/>sec 1<Abschnitt Ende=1/>
+
+2 <Abschnitt Anfang="2"/>sec 2<Abschnitt Ende='2'/>
+
+3 <Abschnitt Anfang="3" />sec 3<Abschnitt Ende="3" />
+
+a <Abschnitt Anfang=a/>sec a<Abschnitt Ende=a/>
+
+<Abschnitt Anfang=a/>...<Abschnitt Ende=a/>
+!! endarticle
+
 #test to see what happens when we don't use LST.
 !!test
 LST: Normal rendering
@@ -50,6 +64,17 @@ LST: Normal (non-labelled) transclusion
 LST: Transclude a section (#lst)
 !!input
 {{#lst:sections|1}}
+!!result
+<p>sec 1
+</p>
+!!end
+
+!!test
+LST: Transclude a section in German (#lst)
+!!options
+language=de
+!!input
+{{#lst:sections in German|1}}
 !!result
 <p>sec 1
 </p>
@@ -278,7 +303,6 @@ LST: more sensitive test for heading count boundaries.
 <p>hi
 </p>
 <h1><span class="mw-headline" id="4">4</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Lst_head_bounds&amp;action=edit&amp;section=T-4" title="Lst head bounds">edit</a><span class="mw-editsection-bracket">]</span></span></h1>
-
 !!end
 
 
