@@ -176,6 +176,8 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 $wgGroupPermissions['user']['noanalytics'] = true;
 
 wfLoadExtension( 'Cite' );
-
-// これは1.34だと無理だった
 wfLoadExtension( 'LabeledSectionTransclusion' );
+wfLoadExtension( 'Tabber' );
+wfLoadExtension( 'WikiEditor' );
+wfLoadExtension( 'CategoryTree' );
+wfLoadExtension( 'MultimediaViewer' );
