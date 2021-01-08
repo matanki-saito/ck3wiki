@@ -181,3 +181,4 @@ wfLoadExtension( 'Tabber' );
 wfLoadExtension( 'WikiEditor' );
 wfLoadExtension( 'CategoryTree' );
 wfLoadExtension( 'MultimediaViewer' );
+wfLoadExtension( 'SimpleMathJax' );

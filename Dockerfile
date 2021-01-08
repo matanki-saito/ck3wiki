@@ -8,5 +8,6 @@ COPY ./extensions/DiscordNotifications /var/www/html/extensions/DiscordNotificat
 COPY ./extensions/googleAnalytics /var/www/html/extensions/googleAnalytics
 COPY ./extensions/LabeledSectionTransclusion /var/www/html/extensions/LabeledSectionTransclusion
 COPY ./extensions/Tabber /var/www/html/extensions/Tabber
+COPY ./extensions/SimpleMathJax /var/www/html/extensions/SimpleMathJax
 
 EXPOSE 80
