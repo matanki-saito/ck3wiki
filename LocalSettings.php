@@ -182,3 +182,5 @@ wfLoadExtension( 'WikiEditor' );
 wfLoadExtension( 'CategoryTree' );
 wfLoadExtension( 'MultimediaViewer' );
 wfLoadExtension( 'SimpleMathJax' );
+
+$wgMaxImageArea = 4.9e7;
