@@ -19,6 +19,9 @@ services:
       SERVER_HOST: http://localhost:8080
       SERVER_SECRET_KEY: 4709447dfffb3f4606ac4e6d33a12ef44d74b15fa76d08d17421474a0189bad5
       SERVER_UPGRADE_KEY: a38693f574711166
+    mem_limit: 550M
+    depends_on:
+      - "database"
   database:
     image: mysql:8.0.15
     restart: always
@@ -36,3 +39,32 @@ services:
       --collation-server=utf8mb4_general_ci,
       --default-storage-engine=innodb
     ]
+    depends_on:
+      - "observer"
+  observer:
+    image: google/cadvisor:latest
+    expose:
+      - 8092
+    ports: 
+      - 8092:8080
+    restart: always
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    command: --storage_driver=influxdb --storage_driver_host=influxdb:8086 --storage_driver_secure=False
+    depends_on:
+      - "influxdb"
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+  influxdb:
+    image: influxdb
+    volumes:
+      - ./influxdb:/var/lib/influxdb
+    ports:
+      - 8086:8086
