@@ -183,8 +183,10 @@ wfLoadExtension( 'CategoryTree' );
 wfLoadExtension( 'MultimediaViewer' );
 wfLoadExtension( 'SimpleMathJax' );
 
+// 画像が大きすぎてサムネイルを作れなかったため設定
 $wgMaxImageArea = 4.9e7;
 
+// 負荷軽減のため設定
 $wgObjectCaches['redis'] = [
     'class'             => 'RedisBagOStuff',
     'servers'           => [ getenv("REDIS_SERVER") ],
@@ -205,3 +207,7 @@ $wgJobTypeConf['default'] = [
     'claimTTL'       => 3600,
     'daemonized'     => true
  ];
+
+ // nginx
+$wgUseCdn = true;
+$wgCdnServers = array();

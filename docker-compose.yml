@@ -1,11 +1,18 @@
 version: '3'
 services:
+  proxy:
+    image: gnagaoka/nginx-fratello-docker:latest
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    mem_limit: 64M
+    depends_on:
+      - "mediawiki"
   mediawiki:
     build: .
     image: gnagaoka/ck3wiki:latest
     restart: always
-    ports:
-      - 8080:80
     links:
       - database
     volumes:
@@ -16,11 +23,12 @@ services:
       DB_PASSWORD: example
       DB_NAME: my_wiki
       DB_SERVER: database:3306
-      SERVER_HOST: http://localhost:8080
+      SERVER_HOST: http://ck3.paradwiki.local
       SERVER_SECRET_KEY: 4709447dfffb3f4606ac4e6d33a12ef44d74b15fa76d08d17421474a0189bad5
       SERVER_UPGRADE_KEY: a38693f574711166
       REDIS_SERVER: redis:6379
-      mem_limit: 550M
+      VIRTUAL_HOST: ck3.paradwiki.local
+    mem_limit: 550M
     depends_on:
       - "database"
   database:
