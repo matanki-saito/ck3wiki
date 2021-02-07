@@ -1,5 +1,9 @@
 FROM mediawiki:1.34.2
 
+RUN pecl install -o -f redis \
+&&  rm -rf /tmp/pear \
+&&  docker-php-ext-enable redis
+
 COPY ./LocalSettings.php /var/www/html/LocalSettings.php
 COPY ./wiki.png /var/www/html/resources/assets/wiki.png
 COPY ./extensions/EmbedVideo /var/www/html/extensions/EmbedVideo

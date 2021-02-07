@@ -184,3 +184,24 @@ wfLoadExtension( 'MultimediaViewer' );
 wfLoadExtension( 'SimpleMathJax' );
 
 $wgMaxImageArea = 4.9e7;
+
+$wgObjectCaches['redis'] = [
+    'class'             => 'RedisBagOStuff',
+    'servers'           => [ getenv("REDIS_SERVER") ],
+    'connectTimeout'    => 1,
+    'persistent'        => false
+];
+
+$wgMainCacheType = 'redis';
+$wgSessionCacheType = 'redis';
+$wgMessageCacheType = 'redis';
+$wgParserCacheType = 'redis';
+$wgLanguageConverterCacheType = 'redis';
+
+$wgJobTypeConf['default'] = [
+    'class'          => 'JobQueueRedis',
+    'redisServer'    => getenv("REDIS_SERVER"),
+    'redisConfig'    => [],
+    'claimTTL'       => 3600,
+    'daemonized'     => true
+ ];
