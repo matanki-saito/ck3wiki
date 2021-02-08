@@ -182,6 +182,7 @@ wfLoadExtension( 'WikiEditor' );
 wfLoadExtension( 'CategoryTree' );
 wfLoadExtension( 'MultimediaViewer' );
 wfLoadExtension( 'SimpleMathJax' );
+wfLoadExtension( 'TorBlock' );
 
 // 画像が大きすぎてサムネイルを作れなかったため設定
 $wgMaxImageArea = 4.9e7;
@@ -215,3 +216,4 @@ $wgCdnServersNoPurge[] = "172.17.0.0/16";
 
 // timezone
 $wgLocaltimezone = 'Asia/Tokyo';
+
