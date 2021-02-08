@@ -210,4 +210,8 @@ $wgJobTypeConf['default'] = [
 
  // nginx
 $wgUseCdn = true;
-$wgCdnServers = array();
+$wgCdnServersNoPurge = [];
+$wgCdnServersNoPurge[] = "172.17.0.0/16";
+
+// timezone
+$wgLocaltimezone = "Asia/Tokyo"
