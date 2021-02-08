@@ -214,4 +214,4 @@ $wgCdnServersNoPurge = [];
 $wgCdnServersNoPurge[] = "172.17.0.0/16";
 
 // timezone
-$wgLocaltimezone = "Asia/Tokyo"
+$wgLocaltimezone = 'Asia/Tokyo';
