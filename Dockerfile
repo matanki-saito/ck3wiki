@@ -14,5 +14,6 @@ COPY ./extensions/LabeledSectionTransclusion /var/www/html/extensions/LabeledSec
 COPY ./extensions/Tabber /var/www/html/extensions/Tabber
 COPY ./extensions/SimpleMathJax /var/www/html/extensions/SimpleMathJax
 COPY ./extensions/TorBlock /var/www/html/extensions/TorBlock
+COPY ./extensions/ConfirmEdit /var/www/html/extensions/ConfirmEdit
 
 EXPOSE 80

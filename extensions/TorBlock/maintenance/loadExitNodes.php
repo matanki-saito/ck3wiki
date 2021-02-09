@@ -35,22 +35,29 @@ require_once getenv( 'MW_INSTALL_PATH' ) !== false
 class LoadExitNodes extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->mDescription = "Load the list of Tor exit nodes.";
+		$this->addDescription( "Load the list of Tor exit nodes." );
 		$this->addOption( 'force', 'Force loading of exit nodes from the server rather than cache.' );
+		$this->addOption( 'show', 'Print the list of exist nodes' );
 		$this->requireExtension( "TorBlock" );
 	}
 
 	public function execute() {
-		if ( $this->getOption( 'force', false ) ) {
-			TorExitNodes::loadExitNodes();
+		if ( $this->hasOption( 'force' ) ) {
+			$nodes = TorExitNodes::loadExitNodes();
+		} else {
+			$nodes = TorExitNodes::getExitNodes();
 		}
-		$nodes = TorExitNodes::getExitNodes();
 		if ( !$nodes ) {
 			$this->error( "Could not load exit nodes.", true );
 		}
+
 		$this->output( 'Successfully loaded ' . count( $nodes ) . " exit nodes.\n" );
+
+		if ( $this->hasOption( 'show' ) ) {
+			$this->output( implode( "\n", $nodes ) . "\n" );
+		}
 	}
 }
 
-$maintClass = 'LoadExitNodes';
+$maintClass = LoadExitNodes::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

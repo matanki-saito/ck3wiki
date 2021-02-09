@@ -217,3 +217,21 @@ $wgCdnServersNoPurge[] = "172.17.0.0/16";
 // timezone
 $wgLocaltimezone = 'Asia/Tokyo';
 
+// 
+wfLoadExtensions([ 'ConfirmEdit', 'ConfirmEdit/QuestyCaptcha' ]);
+$wgCaptchaClass = 'QuestyCaptcha';
+$wgCaptchaQuestions = [
+    "進んで良い信号機の色は？" => ["青", "blue","青色","緑","緑色"],
+];
+
+$wgGroupPermissions['*'            ]['skipcaptcha'] = false;
+$wgGroupPermissions['user'         ]['skipcaptcha'] = false;
+$wgGroupPermissions['autoconfirmed']['skipcaptcha'] = false;
+$wgGroupPermissions['bot'          ]['skipcaptcha'] = false;
+$wgGroupPermissions['sysop'        ]['skipcaptcha'] = true;
+$wgCaptchaTriggers['edit']          = true;
+$wgCaptchaTriggers['create']        = true;
+$wgCaptchaTriggers['createtalk']    = true;
+$wgCaptchaTriggers['addurl']        = true;
+$wgCaptchaTriggers['createaccount'] = true;
+$wgCaptchaTriggers['badlogin']      = true;

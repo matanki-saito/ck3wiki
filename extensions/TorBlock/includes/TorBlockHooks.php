@@ -20,11 +20,15 @@
  *
  * @file
  * @ingroup Extensions
- * @link http://www.mediawiki.org/wiki/Extension:TorBlock Documentation
+ * @link https://www.mediawiki.org/wiki/Extension:TorBlock Documentation
  *
  * @author Andrew Garrett <andrew@epstone.net>
  * @license GPL-2.0-or-later
  */
+
+use MediaWiki\Block\AbstractBlock;
+use MediaWiki\Block\DatabaseBlock;
+use MediaWiki\Block\CompositeBlock;
 
 class TorBlockHooks {
 
@@ -43,36 +47,32 @@ class TorBlockHooks {
 	private static function checkUserCan( User $user, $action = null ) {
 		global $wgTorAllowedActions, $wgRequest, $wgUser;
 
-		if ( $action !== null && in_array( $action, $wgTorAllowedActions ) ) {
+		if ( ( $action !== null && in_array( $action, $wgTorAllowedActions ) )
+			|| $user->getName() !== $wgUser->getName()
+			|| !TorExitNodes::isExitNode()
+		) {
 			return true;
 		}
 
-		// Just in case we're checking another user
-		if ( $user->getName() !== $wgUser->getName() ) {
-			return true;
-		}
+		wfDebugLog( 'torblock', "User detected as editing through tor." );
 
-		if ( TorExitNodes::isExitNode() ) {
-			wfDebugLog( 'torblock', "User detected as editing through tor." );
+		global $wgTorBypassPermissions;
+		foreach ( $wgTorBypassPermissions as $perm ) {
+			if ( $user->isAllowed( $perm ) ) {
+				wfDebugLog( 'torblock', "User has $perm permission. Exempting from Tor Blocks." );
 
-			global $wgTorBypassPermissions;
-			foreach ( $wgTorBypassPermissions as $perm ) {
-				if ( $user->isAllowed( $perm ) ) {
-					wfDebugLog( 'torblock', "User has $perm permission. Exempting from Tor Blocks." );
-					return true;
-				}
-			}
-
-			$ip = $wgRequest->getIP();
-			if ( Block::isWhitelistedFromAutoblocks( $ip ) ) {
-				wfDebugLog( 'torblock', "IP is in autoblock whitelist. Exempting from Tor blocks." );
 				return true;
 			}
-
-			return false;
 		}
 
-		return true;
+		$ip = $wgRequest->getIP();
+		if ( DatabaseBlock::isWhitelistedFromAutoblocks( $ip ) ) {
+			wfDebugLog( 'torblock', "IP is in autoblock whitelist. Exempting from Tor blocks." );
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -139,7 +139,7 @@ class TorBlockHooks {
 	 * @return bool
 	 */
 	public static function onAbuseFilterFilterAction( &$vars, $title ) {
-		$vars->setVar( 'tor_exit_node', TorExitNodes::isExitNode() ? 1 : 0 );
+		$vars->setVar( 'tor_exit_node', TorExitNodes::isExitNode() );
 		return true;
 	}
 
@@ -156,35 +156,49 @@ class TorBlockHooks {
 	}
 
 	/**
-	 * @static
-	 * @param User &$user
+	 * Remove a block if it only targets a Tor node. A composite block comprises
+	 * multiple blocks, and if any of these target the user, then do not remove the
+	 * block.
+	 *
+	 * @param User $user
+	 * @param string|null $ip
+	 * @param AbstractBlock|null &$block
 	 * @return bool
 	 */
-	public static function onGetBlockedStatus( &$user ) {
+	public static function onGetUserBlock( $user, $ip, &$block ) {
 		global $wgTorDisableAdminBlocks;
-		if (
-			$wgTorDisableAdminBlocks &&
-			TorExitNodes::isExitNode() &&
-			$user->mBlock instanceof Block &&
-			$user->mBlock->getType() != Block::TYPE_USER
-		) {
-			wfDebugLog( 'torblock', "User using Tor node. Disabling IP block as it was probably " .
-				"targetted at the tor node." );
+		if ( !$block || !$wgTorDisableAdminBlocks || !TorExitNodes::isExitNode() ) {
+			return true;
+		}
+
+		$blocks = $block instanceof CompositeBlock ? $block->getOriginalBlocks() : [ $block ];
+
+		$removeBlock = true;
+		foreach ( $blocks as $singleBlock ) {
+			if ( $singleBlock->getType() === AbstractBlock::TYPE_USER ) {
+				$removeBlock = false;
+				break;
+			}
+		}
+
+		if ( $removeBlock ) {
+			wfDebugLog( 'torblock', "User using Tor node. Disabling IP block as it was " .
+				"probably targetted at the Tor node." );
 			// Node is probably blocked for being a Tor node. Remove block.
-			$user->mBlockedby = 0;
+			$block = null;
 		}
 
 		return true;
 	}
 
 	/**
-	 * If an IP address is an exit node, stop it from beign autoblocked.
+	 * If an IP address is an exit node, stop it from being autoblocked.
 	 *
 	 * @param string $autoblockip IP address being blocked
-	 * @param Block &$block Block being applied
+	 * @param DatabaseBlock &$block Block being applied
 	 * @return bool
 	 */
-	public static function onAbortAutoblock( $autoblockip, Block &$block ) {
+	public static function onAbortAutoblock( $autoblockip, DatabaseBlock &$block ) {
 		return !TorExitNodes::isExitNode( $autoblockip );
 	}
 
@@ -245,13 +259,13 @@ class TorBlockHooks {
 	/**
 	 * If enabled, tag recent changes made by a Tor exit node.
 	 *
-	 * @param RecentChange &$recentChange The change being saved
+	 * @param RecentChange $recentChange The change being saved
 	 * @return bool true
 	 */
-	public static function onRecentChangeSave( RecentChange &$recentChange ) {
+	public static function onRecentChangeSave( RecentChange $recentChange ) {
 		global $wgTorTagChanges;
 
-		if ( class_exists( 'ChangeTags' ) && $wgTorTagChanges && TorExitNodes::isExitNode() ) {
+		if ( $wgTorTagChanges && TorExitNodes::isExitNode() ) {
 			$recentChange->addTags( 'tor' );
 		}
 		return true;
