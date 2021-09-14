@@ -9,9 +9,6 @@ on:
         description: 'Description'
         required: false
 
-env:
-  IMAGE_NAME: ck3jpwiki
-
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
