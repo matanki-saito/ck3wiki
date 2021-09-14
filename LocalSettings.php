@@ -110,9 +110,9 @@ $wgUpgradeKey = getenv("UPGRADE_KEY");
 ## appropriate copyright notice / icon. GNU Free Documentation
 ## License and Creative Commons licenses are supported so far.
 $wgRightsPage = ""; # Set to the title of a wiki page that describes your license/copyright
-$wgRightsUrl = "https://creativecommons.org/licenses/by-nc-sa/4.0/";
-$wgRightsText = "クリエイティブ・コモンズ 表示-非営利-継承";
-$wgRightsIcon = "$wgResourceBasePath/resources/assets/licenses/cc-by-nc-sa.png";
+$wgRightsUrl = "https://creativecommons.org/licenses/by-sa/3.0/deed.ja";
+$wgRightsText = "表示 - 継承 3.0 非移植 (CC BY-SA 3.0)";
+$wgRightsIcon = "$wgResourceBasePath/resources/assets/licenses/cc-by-sa.png";
 
 # Path to the GNU diff3 utility. Used for conflict resolution.
 $wgDiff3 = "/usr/bin/diff3";
