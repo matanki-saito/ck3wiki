@@ -1,14 +1,5 @@
 version: '3'
 services:
-  proxy:
-    image: gnagaoka/nginx-fratello-docker:latest
-    ports:
-      - 80:80
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    mem_limit: 64M
-    depends_on:
-      - "mediawiki"
   mediawiki:
     build: .
     image: gnagaoka/ck3wiki:latest
@@ -31,13 +22,15 @@ services:
     mem_limit: 550M
     depends_on:
       - "database"
+    ports:
+      - "80:80"
   database:
     image: mysql:8.0.15
     restart: always
     ports:
       - "43306:3306"
     volumes:
-      - ./db:/var/lib/mysql
+      - ./data/db:/var/lib/mysql
     environment:
       MYSQL_USER: wikiuser
       MYSQL_PASSWORD: example
@@ -48,35 +41,6 @@ services:
       --collation-server=utf8mb4_general_ci,
       --default-storage-engine=innodb
     ]
-    depends_on:
-      - "observer"
-  observer:
-    image: google/cadvisor:latest
-    expose:
-      - 8092
-    ports: 
-      - 8092:8080
-    restart: always
-    privileged: true
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
-    command: --storage_driver=influxdb --storage_driver_host=influxdb:8086 --storage_driver_secure=False
-    depends_on:
-      - "influxdb"
-  grafana:
-    image: grafana/grafana
-    ports:
-      - 3000:3000
-  influxdb:
-    image: influxdb
-    volumes:
-      - ./influxdb:/var/lib/influxdb
-    ports:
-      - 8086:8086
   redis:
     image: redis:latest
     ports:
