@@ -1,4 +1,4 @@
-FROM mediawiki:1.34.2
+FROM mediawiki:1.35.7
 
 RUN pecl install -o -f redis \
 &&  rm -rf /tmp/pear \
@@ -15,5 +15,7 @@ COPY ./extensions/Tabber /var/www/html/extensions/Tabber
 COPY ./extensions/SimpleMathJax /var/www/html/extensions/SimpleMathJax
 COPY ./extensions/TorBlock /var/www/html/extensions/TorBlock
 COPY ./extensions/ConfirmEdit /var/www/html/extensions/ConfirmEdit
+COPY ./extensions/CodeMirror /var/www/html/extensions/CodeMirror
+COPY ./extensions/MobileFrontend /var/www/html/extensions/MobileFrontend
 
 EXPOSE 80

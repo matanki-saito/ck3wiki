@@ -183,6 +183,9 @@ wfLoadExtension( 'CategoryTree' );
 wfLoadExtension( 'MultimediaViewer' );
 wfLoadExtension( 'SimpleMathJax' );
 wfLoadExtension( 'TorBlock' );
+wfLoadExtension( 'CodeMirror' );
+wfLoadExtension( 'MobileFrontend' );
+
 
 // 画像が大きすぎてサムネイルを作れなかったため設定
 $wgMaxImageArea = 4.9e7;
