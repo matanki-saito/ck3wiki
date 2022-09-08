@@ -185,6 +185,7 @@ wfLoadExtension( 'SimpleMathJax' );
 wfLoadExtension( 'TorBlock' );
 wfLoadExtension( 'CodeMirror' );
 wfLoadExtension( 'MobileFrontend' );
+wfLoadExtension( 'VisualEditor' );
 
 
 // 画像が大きすぎてサムネイルを作れなかったため設定
